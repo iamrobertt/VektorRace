@@ -20,9 +20,10 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.NeculaRobertGabriel123390.api.model.race;
+package it.unicam.cs.NeculaRobertGabriel123390.api.model;
 
 
+import it.unicam.cs.NeculaRobertGabriel123390.api.model.handler.RaceHandler;
 import it.unicam.cs.NeculaRobertGabriel123390.api.model.player.Player;
 import it.unicam.cs.NeculaRobertGabriel123390.api.model.circuit.Circuit;
 import it.unicam.cs.NeculaRobertGabriel123390.api.model.player.BotPlayer;
@@ -34,26 +35,37 @@ import java.util.List;
 
 
 /**
- * Record that represents a race merging circuit data and player data
+ * Record that represents a race merging circuit data, player data and handlers
  */
-public record Race(Circuit circuit, List<Player> players) {
+public record Race(Circuit circuit, List<Player> players, List<RaceHandler> handlers){
 
-    public Race(Circuit circuit, List<Player> players) {
-        validateRace(circuit, players);
+
+    public Race(Circuit circuit, List<Player> players, List<RaceHandler> handlers) {
+        validateRace(circuit, players, handlers);
         this.circuit = circuit;
-        this.players = new ArrayList<>(players);
+        this.players = players;
+        this.handlers = handlers;
     }
 
-
-    private void validateRace(Circuit circuit, List<Player> players) {
+    /**
+     * Method that checks if circuit, race and handlers are null.
+     *
+     * @param circuit  - The circuit of the race
+     * @param players  - The list of players that are playing
+     * @param handlers - The list of handlers for the race
+     */
+    private void validateRace(Circuit circuit, List<Player> players, List<RaceHandler> handlers) {
         if (circuit == null) throw new NullPointerException("Circuit cannot be null");
-        if (circuit.isEmpty()) throw new IllegalArgumentException("Circuit cannot be empty");
-        if (circuit.isEmpty()) throw new IllegalArgumentException("Circuit is empty");
         if (players == null) throw new NullPointerException("Players cannot be null");
-        if (players.isEmpty()) throw new IllegalArgumentException("Amount of players not valid for a race");
+        if (handlers == null) throw new NullPointerException("MoveHandlers cannot be null");
     }
 
 
+    /**
+     * Method used by the controller to display in th view the number of bot players
+     *
+     * @return int The number of bot players
+     */
     public int getNumberOfBotPlayers() {
         int botPlayers = 0;
         for (Player player : players)
@@ -65,6 +77,11 @@ public record Race(Circuit circuit, List<Player> players) {
     }
 
 
+    /**
+     * Method used by the controller to display in th view the number of human players
+     *
+     * @return int The number of human players
+     */
     public int getNumberOfHumanPlayers() {
         int humanPlayers = 0;
         for (Player player : players)
@@ -72,10 +89,6 @@ public record Race(Circuit circuit, List<Player> players) {
                 humanPlayers++;
 
         return humanPlayers;
-    }
-
-    public int getNumberOfPlayers() {
-        return players.size();
     }
 
 }

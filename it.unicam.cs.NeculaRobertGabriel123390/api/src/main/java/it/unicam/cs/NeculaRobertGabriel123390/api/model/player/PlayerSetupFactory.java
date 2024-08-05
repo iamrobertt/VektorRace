@@ -20,7 +20,6 @@ public class PlayerSetupFactory {
         if(fileData instanceof TXTParsedFileData)
             return new TXTPlayerSetup();
 
-        //new implementation here
-        return null;
+        throw new IllegalArgumentException("type of filedata not supported yet");
     }
 }

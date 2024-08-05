@@ -28,41 +28,30 @@ import javafx.scene.paint.Color;
 
 public abstract class Player {
 
-    private String playerName;
-    private Color playerColor;
-    //private List<Move> moves;
-    private Position playerPosition;
+    private final String name;
+    private final Color color;
+    private Position position;
 
-
-    public Player(String playerName) {
-        this.playerName = playerName;
-    }
 
 
     public Player(String playerName, Color playerColor) {
-        this.playerName = playerName;
-        this.playerColor = playerColor;
+        this.name = playerName;
+        this.color = playerColor;
     }
 
 
-    public Player(String playerName, Color playerColor, Position playerPosition) {
-        this.playerName = playerName;
-        this.playerColor = playerColor;
-        this.playerPosition = playerPosition;
+
+    public String getName() {
+        return this.name;
     }
 
 
-    public String getPlayerName() {
-        return playerName;
-    }
+    public Color getColor() {return this.color;}
 
 
-    public Color getPlayerColor() {return playerColor;}
+    public Position getPosition() {return this.position;}
 
 
-    public Position getPlayerPosition() {return playerPosition;}
-
-
-    public void setPlayerPosition(Position playerPosition) {this.playerPosition = playerPosition; }
+    public void setPlayerPosition(Position playerPosition) {this.position = playerPosition; }
 
 }

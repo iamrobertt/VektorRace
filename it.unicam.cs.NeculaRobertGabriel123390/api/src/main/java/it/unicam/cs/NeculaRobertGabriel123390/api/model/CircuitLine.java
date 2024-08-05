@@ -23,9 +23,7 @@
 package it.unicam.cs.NeculaRobertGabriel123390.api.model;
 
 
-import it.unicam.cs.NeculaRobertGabriel123390.api.model.circuit.CircuitSetup;
-import it.unicam.cs.NeculaRobertGabriel123390.api.utils.CircuitNodeUtils;
-import it.unicam.cs.NeculaRobertGabriel123390.api.model.circuit.CircuitNode;
+import it.unicam.cs.NeculaRobertGabriel123390.api.utils.PositionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,31 +32,14 @@ import java.util.List;
 /**
  * Class that represents a line, which is a union of multiple adjacent nodes
  */
-public class Line {
+public class CircuitLine {
+
 
     private final List<CircuitNode> nodesOfLine;
 
-    public Line(List<CircuitNode> nodesOfLine) {
-        validateLine(nodesOfLine);
-        this.nodesOfLine = new ArrayList<CircuitNode>(nodesOfLine);
-    }
 
-    public Line() {
+    public CircuitLine() {
         this.nodesOfLine = new ArrayList<>();
-    }
-
-
-    /**
-     * Method that checks if the nodes composing the line are valid
-     * @param nodesOfLine - The nodes that are part of the line
-     */
-    private void validateLine(List<CircuitNode> nodesOfLine) {
-        if (nodesOfLine == null)
-            throw new NullPointerException("Nodes of line is null");
-        if (nodesOfLine.size() < CircuitSetup.MIN_CIRCUIT_WIDTH)
-            throw new IllegalArgumentException("A line needs to have at least 2 nodes");
-        if (!CircuitNodeUtils.areNodesAdjacent(nodesOfLine))
-            throw new IllegalArgumentException("The nodes of the line need to be adjacent");
     }
 
 
@@ -67,18 +48,29 @@ public class Line {
      * @param node - New node to add to the line
      */
     //todo validate node
-    public void addNodeToLine(CircuitNode node) {
+    public void addNode(CircuitNode node) {
         if (node == null) throw new NullPointerException("CircuitNode is null");
+        PositionUtils.validateCircuitNodePosition(node.getPosition());
         this.nodesOfLine.add(node);
     }
 
 
-
+    /**
+     * Method that checks if the supplied node is part of the line
+     * @param node - The node to check
+     * @return true if the node is part of the line, false otherwise
+     */
     public boolean isNodePartOfLine(CircuitNode node) {
         return this.nodesOfLine.contains(node);
     }
 
 
     public List<CircuitNode> getNodesOfLine() {return this.nodesOfLine;}
+
+
+    public CircuitNode getNode(int index) {return this.nodesOfLine.get(index);}
+
+
+    public boolean isEmpty() {return this.nodesOfLine.isEmpty();}
 
 }

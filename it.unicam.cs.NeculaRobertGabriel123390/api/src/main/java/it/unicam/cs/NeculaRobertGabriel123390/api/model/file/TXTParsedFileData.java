@@ -17,9 +17,7 @@ public class TXTParsedFileData implements ParsedFileData {
     }
 
 
-    public List<String> getData() {
-        return this.fileData;
-    }
+    public List<String> getData() {return this.fileData;}
 
 
 }

@@ -19,11 +19,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package it.unicam.cs.NeculaRobertGabriel123390.api.model.circuit;
+package it.unicam.cs.NeculaRobertGabriel123390.api.model;
 
-
-import it.unicam.cs.NeculaRobertGabriel123390.api.utils.CircuitNodeState;
-import it.unicam.cs.NeculaRobertGabriel123390.api.model.Position;
 
 /**
  * CLass that represent a specific point into the track
@@ -34,18 +31,30 @@ public class CircuitNode {
 
 
     private final Position position;
-    private final CircuitNodeState type;
+    private CircuitNodeState state;
 
 
     /**
      * Initialize a point of the track
      *
      * @param nodePosition - The exact position of the point
-     * @param type         - The type of the node (either trackNode, start
+     * @param type         - The state of the node (either trackNode, start
      */
     public CircuitNode(Position nodePosition, CircuitNodeState type) {
+        validateNode(nodePosition, type);
         this.position = nodePosition;
-        this.type = type;
+        this.state = type;
+    }
+
+
+    /**
+     * Method that checks if the supplied data is valid for a node
+     * @param nodePosition - the position of the node
+     * @param state - the state of the node
+     */
+    private void validateNode(Position nodePosition, CircuitNodeState state) {
+        if(nodePosition == null) throw new NullPointerException("Position is null");
+        if(state == null) throw new NullPointerException("State is null");
     }
 
 
@@ -54,24 +63,28 @@ public class CircuitNode {
     }
 
 
-    public CircuitNodeState getType() {
-        return type;
+    public CircuitNodeState getState() {
+        return state;
     }
 
+
+    public void setState(CircuitNodeState state) {
+        this.state = state;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CircuitNode node = (CircuitNode) o;
-        return this.position == node.getPosition() && this.type == node.getType();
+        return this.position == node.getPosition() && this.state == node.getState();
 
     }
 
 
     @Override
     public int hashCode() {
-        return this.position.hashCode() + this.type.hashCode();
+        return this.position.hashCode() + this.state.hashCode();
     }
 
 

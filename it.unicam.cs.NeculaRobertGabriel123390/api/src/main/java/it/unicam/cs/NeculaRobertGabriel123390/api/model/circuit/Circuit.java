@@ -23,15 +23,17 @@
 package it.unicam.cs.NeculaRobertGabriel123390.api.model.circuit;
 
 
-import it.unicam.cs.NeculaRobertGabriel123390.api.model.Line;
+import it.unicam.cs.NeculaRobertGabriel123390.api.model.CircuitLine;
+import it.unicam.cs.NeculaRobertGabriel123390.api.model.CircuitNode;
 import it.unicam.cs.NeculaRobertGabriel123390.api.model.Position;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 
 /**
- * Class that represents the data of a circuit, including track points, start line and end line
+ * Class that represents the data of a circuit, including circuit points, start line and end line
  */
 public class Circuit {
 
@@ -40,12 +42,16 @@ public class Circuit {
      * A map of all the track nodes created on the environment build
      */
     private final Map<Position, CircuitNode> circuitMap;
-    private final Line startLine;
-    private final Line endLine;
 
 
-    public Circuit(Map<Position, CircuitNode> circuitNodes, Line startLine, Line endLine) {
-        validateCircuit(circuitNodes);
+    private final CircuitLine startLine;
+
+
+    private final CircuitLine endLine;
+
+
+    public Circuit(Map<Position, CircuitNode> circuitNodes, CircuitLine startLine, CircuitLine endLine) {
+        validateCircuit(circuitNodes, startLine, endLine);
         this.circuitMap = new HashMap<>(circuitNodes);
         this.startLine = startLine;
         this.endLine = endLine;
@@ -53,21 +59,23 @@ public class Circuit {
 
 
     /**
-     * Method that checks if circuitNodes is a valid map for a circuit
-     * @param circuitNodes - the nodes of the circuit
+     * Method that checks if circuitMap is a valid map for a circuit
+     *
+     * @param circuitMap - the circuit map
+     * @param startLine - the start line
+     * @param endLine - the end line
      */
-    private void validateCircuit(Map<Position, CircuitNode> circuitNodes) {
-        if (circuitNodes == null) throw new NullPointerException("CircuitNodes is null");
-        if (circuitNodes.isEmpty()) throw new IllegalArgumentException("CircuitNodes is empty");
-
-    }
-
-
-    public boolean isNodePresent(CircuitNode node) {return circuitMap.containsKey(node.getPosition());}
-
-
-    public boolean isNodePartOfStartLine(CircuitNode node) {
-        return startLine.isNodePartOfLine(node);
+    private void validateCircuit(Map<Position, CircuitNode> circuitMap, CircuitLine startLine, CircuitLine endLine) {
+        if (circuitMap == null) throw new NullPointerException("CircuitNodes is null");
+        if (circuitMap.isEmpty()) throw new IllegalArgumentException("CircuitNodes is empty");
+        if (startLine == null) throw new NullPointerException("startLine is null");
+        if (endLine == null) throw new NullPointerException("endLine is null");
+        if (startLine.isEmpty()) throw new IllegalArgumentException("startLine does not have any node");
+        if (endLine.isEmpty()) throw new IllegalArgumentException("endLine does not have any node");
+        if( startLine.getNodesOfLine().size() < CircuitSetup.MIN_CIRCUIT_WIDTH)
+            throw new IllegalArgumentException("startLine has less nodes than minimum circuit width");
+        if( endLine.getNodesOfLine().size() < CircuitSetup.MIN_CIRCUIT_WIDTH)
+            throw new IllegalArgumentException("endLine has less nodes than minimum circuit width");
     }
 
 
@@ -76,20 +84,19 @@ public class Circuit {
     }
 
 
-    public boolean isEmpty() {return circuitMap.isEmpty(); }
-
-
     public CircuitNode getCircuitNode(Position position){return this.circuitMap.get(position);}
 
 
-    public Map<Position, CircuitNode> getCircuitMap(){
-        return this.circuitMap;
-    }
+    public CircuitLine getStartLine() {return startLine;}
 
 
-    public Line getStartLine() {return startLine;}
+    public CircuitLine getEndLine() {return endLine;}
 
 
-    public Line getEndLine() {return endLine;}
+    /**
+     * Method that retrieves all the positions of the circuit nodes
+     * @return Set<Position> the list of the points that are part of the circuit
+     */
+    public Set<Position> getPositions() {return this.circuitMap.keySet();}
 
 }

@@ -21,11 +21,8 @@
  */
 
 
-package it.unicam.cs.NeculaRobertGabriel123390.api.utils;
+package it.unicam.cs.NeculaRobertGabriel123390.api.model;
 
-
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 /**
  * Enum that gives information about the type of the node
@@ -36,43 +33,37 @@ public enum CircuitNodeState {
     /**
      * The node is part of the track
      */
-    trackNode(Color.GREY),
+    trackNode,
 
 
     /**
      * The node isn't part of the track
      */
-    nonTrackNode(Color.WHITE),
+    nonTrackNode,
 
 
     /**
      * The node is part of the track and the startLine
      */
-    startNode(Color.YELLOW),
+    startNode,
 
 
     /**
      * The node is part of the track and the endline
      */
-    endNode(Color.RED),
+    endNode,
 
 
     /**
      * The node is part of the track, and it's a wall, resulting in a crash when hit
      */
-    wallNode(Color.BLACK);
-
-    private final Color color;
+    wallNode,
 
 
-    CircuitNodeState(Color color) {
-        this.color = color;
-    }
-
-
-    public void applyStyle(Rectangle tile) {
-        tile.setFill(this.color);
-    }
+    /**
+     * The node is part of the track, and it's already occupied by another player
+     */
+    occupied
 
 
 }

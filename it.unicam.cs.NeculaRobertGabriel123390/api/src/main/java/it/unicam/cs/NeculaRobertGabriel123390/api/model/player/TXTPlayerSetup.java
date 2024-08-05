@@ -1,39 +1,48 @@
 package it.unicam.cs.NeculaRobertGabriel123390.api.model.player;
 
 
-import it.unicam.cs.NeculaRobertGabriel123390.api.model.circuit.CircuitSetup;
+import it.unicam.cs.NeculaRobertGabriel123390.api.model.circuit.TXTCircuitSetup;
 import it.unicam.cs.NeculaRobertGabriel123390.api.model.file.ParsedFileData;
 import it.unicam.cs.NeculaRobertGabriel123390.api.model.file.TXTParsedFileData;
 import it.unicam.cs.NeculaRobertGabriel123390.api.utils.PlayerUtils;
 import javafx.scene.paint.Color;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
  * Class that implements the PlayerSetup interface for a txt file
  */
-//todo magari rivedi e semplifica
 public class TXTPlayerSetup implements PlayerSetup {
 
 
+    private List<String> linesOfFile;
+
+
+    private String playersCountInfo;
+
+
     /**
-     * Method that retrieves the players for the race based on file data
+     * Method that supplies a list of players from the file data
      *
-     * @param fileData - The data from the txtFile
+     * @param fileData - The data from the txt file
      * @return List<Player> - The list of players
      */
     @Override
     public List<Player> setup(ParsedFileData fileData) {
 
         validateFileDataType(fileData);
-        String numOfPlayersString = extractNumPlayersStringFromFile(fileData);
+
+        this.linesOfFile = new ArrayList<>(((TXTParsedFileData) fileData).getData());
+
+        this.playersCountInfo = getPlayersCountInfo();
+        validatePlayersInfo();
 
         List<Player> players = new ArrayList<>();
-        int numBotsPlayer = PlayerUtils.getNumberOfBotPlayers(numOfPlayersString);
+        int numBotsPlayer = PlayerUtils.getBotCount(this.playersCountInfo);
 
-        Map<String, Color> humanPlayersData = retrieveHumanPlayersDataFromFile(fileData);
-        players.addAll(createHumanPlayers(humanPlayersData));
+        players.addAll(createHumanPlayers());
         players.addAll(createBotPlayers(numBotsPlayer));
 
         return players;
@@ -55,88 +64,73 @@ public class TXTPlayerSetup implements PlayerSetup {
 
     /**
      * Method that checks if supplied human player data is same as number of human players declared
+     * If I write 0B 2H I also need to write in the new line 2 pair of player data  name:color,name:color
      *
      * @param dividedPlayersData - The array of strings each representing one user data
      * @param humanPlayers       - NUmber of human players declared in file in "xH" where x is the number of players declared
      */
-    private void validatePlayerData(String[] dividedPlayersData, int humanPlayers) {
+    private void validateHumanPlayerData(String[] dividedPlayersData, int humanPlayers) {
         if (dividedPlayersData.length != humanPlayers)
-            throw new IllegalArgumentException("HUman player data supplied (name, color) not same as human player declared in previous row");
+            throw new IllegalArgumentException("Human player data supplied [name:color] not same as human player declared in previous row");
+    }
+
+
+    /**
+     * Method that checks if the amount of player supplied is at least 2
+     */
+    private void validatePlayersInfo(){
+        if(PlayerUtils.getBotCount(this.playersCountInfo) + PlayerUtils.getHumanCount(this.playersCountInfo) < 2)
+            throw new IllegalArgumentException("Minimum of 2 players required");
     }
 
 
     /**
      * Method that extracts the row of the file with the number of players data
      *
-     * @param fileData - The data passed
-     * @return String The string with players data
+     * @return String The line where number of players data is written
      */
-    private String extractNumPlayersStringFromFile(ParsedFileData fileData) {
-        List<String> dataToList = new ArrayList<>(((TXTParsedFileData) fileData).getData());
-        return dataToList.get(CircuitSetup.PLAYERS_NUMBER_ROW);
+    private String getPlayersCountInfo() {
+        return this.linesOfFile.get(TXTCircuitSetup.PLAYERS_NUMBER_ROW);
     }
 
 
     /**
-     * Method that extracts the last row of file where human players data is supplied
+     * Method that retrieves the human player info (name:color) from the file, splitting them
      *
-     * @param fileData - The data passed
      * @return String[] arrays of strings each representing a user
      */
-    private String[] extractHumanPlayersDataStringFromFile(ParsedFileData fileData) {
-        List<String> dataToList = new ArrayList<>(((TXTParsedFileData) fileData).getData());
-        String[] dividedPlayersData = dataToList.get(CircuitSetup.HUMAN_PLAYERS_DATA_ROW).split(",");
+    private String[] getHumanPlayerData() {
+        String[] humanData = this.linesOfFile.get(TXTCircuitSetup.HUMAN_PLAYERS_DATA_ROW).split(",");
 
-        String numOfHumanPlayersString = extractNumPlayersStringFromFile(fileData);
+        int humanCount = PlayerUtils.getHumanCount(this.playersCountInfo);
 
-        int humanPlayers = PlayerUtils.getNumberOfHumanPlayers(numOfHumanPlayersString);
+        validateHumanPlayerData(humanData, humanCount);
 
-        validatePlayerData(dividedPlayersData, humanPlayers);
-
-        return dividedPlayersData;
+        return humanData;
     }
 
 
     /**
-     * Method that retrieves the human players data from the file
+     * Method that retrieves the human players data from the file and creates the human players
+     * player info holds the name:color data for each player
      *
-     * @param fileData - The data passed
      * @return Map<String, Color> All human player data
      */
-    private Map<String, Color> retrieveHumanPlayersDataFromFile(ParsedFileData fileData) {
-
-        Map<String, Color> playersData = new HashMap<>();//
-        String[] dividedPlayersData = extractHumanPlayersDataStringFromFile(fileData);
-        for (String playerData : dividedPlayersData) {
-            String[] splitPlayerData = playerData.split(":");
-            playersData.put(splitPlayerData[0], Color.valueOf(splitPlayerData[1]));
+    private List<Player> createHumanPlayers() {
+        List<Player> players = new ArrayList<>();
+        String[] humanData = getHumanPlayerData();
+        for (String data : humanData) {
+            String[] playerInfo = data.split(":");
+            players.add(new HumanPlayer(playerInfo[0], Color.valueOf(playerInfo[1])));
         }
 
-        return playersData;
+        return players;
     }
 
 
-    /**
-     * Method that creates new human players, data got from the file
-     *
-     * @param players - Human players
-     * @return List<Player> - Human players
-     */
-    private List<Player> createHumanPlayers(Map<String, Color> players) {
-        List<Player> humanPlayers = new ArrayList<>();
-
-        for (Map.Entry<String, Color> player : players.entrySet()) {
-            String playerName = player.getKey();
-            Color playerColor = player.getValue();
-            humanPlayers.add(new HumanPlayer(playerName, playerColor));
-        }
-
-        return humanPlayers;
-    }
-
 
     /**
-     * Method that creates numBots players, data got from the file
+     * Method that creates numBots players, assigning them a progressive number and a random color
      *
      * @param numBots - Number of bot players
      * @return List<Player> - BotPlayer

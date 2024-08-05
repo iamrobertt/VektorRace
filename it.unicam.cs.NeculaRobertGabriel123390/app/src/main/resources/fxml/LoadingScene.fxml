@@ -2,12 +2,15 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.NeculaRobertGabriel123390.app.LoadingController">
+<AnchorPane prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.NeculaRobertGabriel123390.app.LoadingController">
    <children>
       <Pane prefHeight="80.0" prefWidth="1400.0" style="-fx-background-color: #8885EF;">
          <children>
@@ -18,9 +21,9 @@
             </Text>
          </children>
       </Pane>
-      <Pane layoutX="-6.0" layoutY="80.0" prefHeight="720.0" prefWidth="1400.0">
+      <Pane layoutX="-7.0" layoutY="80.0" prefHeight="720.0" prefWidth="1400.0">
          <children>
-            <Pane layoutX="300.0" layoutY="172.0" prefHeight="377.0" prefWidth="800.0" style="-fx-background-color: white; -fx-border-color: #8885EF; -fx-border-width: 3;">
+            <Pane layoutX="300.0" layoutY="113.0" prefHeight="495.0" prefWidth="800.0" style="-fx-background-color: white; -fx-border-color: #8885EF; -fx-border-width: 3;">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -32,50 +35,81 @@
                               <Font name="Segoe UI" size="25.0" />
                            </font>
                         </Text>
-                        <Text layoutX="14.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose a file with the track information to start a race!" textAlignment="CENTER" wrappingWidth="201.341796875">
+                        <Text layoutX="14.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose a file with the track information to start a race!" textAlignment="CENTER" wrappingWidth="201.341796875">
                            <font>
                               <Font name="Segoe UI" size="16.0" />
                            </font>
                         </Text>
-                        <Button fx:id="loadFIleBtn" layoutX="258.0" layoutY="146.0" mnemonicParsing="false" onMouseClicked="#onOpenFile" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #8885EF;" text="LOAD FILE" textFill="WHITE">
+                        <Button fx:id="loadFIleBtn" layoutX="230.0" layoutY="65.0" mnemonicParsing="false" onMouseClicked="#onOpenFile" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #8885EF;" text="LOAD FILE" textFill="WHITE">
                            <font>
                               <Font name="Segoe UI" size="16.0" />
                            </font>
                         </Button>
                      </children>
                   </Pane>
-                  <Pane layoutY="213.0" prefHeight="169.0" prefWidth="800.0">
+                  <Pane layoutY="213.0" prefHeight="280.0" prefWidth="800.0">
                      <children>
-                        <Text layoutX="14.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TRACK INFO" textAlignment="CENTER" wrappingWidth="100.00000000000011">
+                        <Text layoutX="676.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TRACK INFO" textAlignment="CENTER" wrappingWidth="100.00000000000011">
                            <font>
                               <Font name="Segoe UI Bold" size="16.0" />
                            </font>
                         </Text>
-                        <Text layoutX="28.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BOT PLAYERS:" textAlignment="CENTER" wrappingWidth="119.6201171875">
+                        <Text layoutX="628.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BOT PLAYERS:" textAlignment="CENTER" wrappingWidth="119.6201171875">
                            <font>
                               <Font name="Segoe UI" size="16.0" />
                            </font>
                         </Text>
-                        <Text layoutX="28.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HUMAN PLAYERS:" textAlignment="CENTER" wrappingWidth="148.6201171875">
+                        <Text layoutX="599.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HUMAN PLAYERS:" textAlignment="CENTER" wrappingWidth="148.6201171875">
                            <font>
                               <Font name="Segoe UI" size="16.0" />
                            </font>
                         </Text>
-                        <Button fx:id="startRaceBtn" layoutX="666.0" layoutY="112.0" mnemonicParsing="false" onMouseClicked="#onStartRace" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8885EF;" text="START RACE" textFill="WHITE">
+                        <Button fx:id="startRaceBtn" layoutX="666.0" layoutY="226.0" mnemonicParsing="false" onMouseClicked="#onStartRace" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8885EF;" text="START RACE" textFill="WHITE">
                            <font>
                               <Font name="Segoe UI" size="16.0" />
                            </font>
                         </Button>
-                        <Text fx:id="numBotsText" layoutX="182.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="30.0">
+                        <Text fx:id="numBotsText" layoutX="748.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="40.0">
                            <font>
                               <Font name="Segoe UI" size="16.0" />
                            </font>
                         </Text>
-                        <Text fx:id="numHumansText" layoutX="182.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="30.0">
+                        <Text fx:id="numHumansText" layoutX="748.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="40.0">
                            <font>
                               <Font name="Segoe UI" size="16.0" />
                            </font>
                         </Text>
+                        <Pane layoutX="225.0" prefHeight="280.0" prefWidth="350.0">
+                           <children>
+                              <Text layoutX="14.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RULES" textAlignment="CENTER" wrappingWidth="54.000000000000114">
+                                 <font>
+                                    <Font name="Segoe UI Bold" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text layoutX="14.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ALLOW_COLLISIONS:" textAlignment="CENTER" wrappingWidth="155.6201171875">
+                                 <font>
+                                    <Font name="Segoe UI" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text layoutX="14.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ON_CRASH:" textAlignment="CENTER" wrappingWidth="88.6201171875">
+                                 <font>
+                                    <Font name="Segoe UI" size="16.0" />
+                                 </font>
+                              </Text>
+                              <ChoiceBox fx:id="allowCollisionsChoiceBox" layoutX="180.0" layoutY="36.0" prefHeight="25.0" prefWidth="156.0" />
+                              <ChoiceBox fx:id="onCrashChoiceBox" layoutX="180.0" layoutY="75.0" prefHeight="25.0" prefWidth="156.0" />
+                           </children>
+                        </Pane>
+                        <Text layoutX="22.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LOG" textAlignment="CENTER" wrappingWidth="40.0">
+                           <font>
+                              <Font name="Segoe UI Bold" size="16.0" />
+                           </font>
+                        </Text>
+                        <ScrollPane layoutY="147.0" prefHeight="135.0" prefWidth="200.0">
+                           <content>
+                              <TextArea fx:id="loadingLogArea" prefHeight="118.0" prefWidth="200.0" />
+                           </content>
+                        </ScrollPane>
                      </children>
                   </Pane>
                </children>

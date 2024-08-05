@@ -1,6 +1,6 @@
 package it.unicam.cs.NeculaRobertGabriel123390.app;
 
-import it.unicam.cs.NeculaRobertGabriel123390.api.model.player.PlayerPossibleMoves;
+import it.unicam.cs.NeculaRobertGabriel123390.api.model.PlayerMoves;
 import it.unicam.cs.NeculaRobertGabriel123390.api.model.Position;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -10,22 +10,22 @@ import javafx.scene.layout.GridPane;
  * Class that manages graphically the next possible moves based on supplied PlayerPossibleMoves data
  * This data is assigned to every button in the grid pane, allowing to move players
  */
-public class MoveGrid {
+public class MovesGrid {
 
 
     private final GridPane inputMovesGrid;
 
-    private PlayerPossibleMoves playerPossibleMoves;
+    private PlayerMoves playerPossibleMoves;
 
 
-    public MoveGrid(GridPane inputMovesGrid, PlayerPossibleMoves playerPossibleMoves) {
+    public MovesGrid(GridPane inputMovesGrid, PlayerMoves playerPossibleMoves) {
         validateMoveGrid(inputMovesGrid, playerPossibleMoves);
         this.inputMovesGrid = inputMovesGrid;
         this.playerPossibleMoves = playerPossibleMoves;
     }
 
 
-    private void validateMoveGrid(GridPane inputMovesGrid, PlayerPossibleMoves playerPossibleMoves) {
+    private void validateMoveGrid(GridPane inputMovesGrid, PlayerMoves playerPossibleMoves) {
         if(inputMovesGrid == null) throw new NullPointerException("inputMovesGrid is null");
         if(playerPossibleMoves == null) throw new NullPointerException("playerPossibleMoves is null");
         //todo verifica perche ci sono 10 children (un group di troppo)
@@ -55,7 +55,7 @@ public class MoveGrid {
      * Method that updates the grid data with the next player's possible moves
      * @param playerPossibleMoves - The next player's possible moves
      */
-    public void updateGrid(PlayerPossibleMoves playerPossibleMoves) {
+    public void updateGrid(PlayerMoves playerPossibleMoves) {
         this.playerPossibleMoves = playerPossibleMoves;
         setupGrid();
     }

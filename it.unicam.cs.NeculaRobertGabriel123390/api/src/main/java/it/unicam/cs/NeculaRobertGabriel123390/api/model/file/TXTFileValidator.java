@@ -2,7 +2,8 @@ package it.unicam.cs.NeculaRobertGabriel123390.api.model.file;
 
 
 import it.unicam.cs.NeculaRobertGabriel123390.api.model.circuit.CircuitSetup;
-import it.unicam.cs.NeculaRobertGabriel123390.api.utils.CircuitNodeUtils;
+import it.unicam.cs.NeculaRobertGabriel123390.api.model.circuit.TXTCircuitSetup;
+import it.unicam.cs.NeculaRobertGabriel123390.api.model.exception.FileFormatError;
 import it.unicam.cs.NeculaRobertGabriel123390.api.utils.PlayerUtils;
 
 
@@ -28,7 +29,7 @@ public class TXTFileValidator implements FileValidator {
 
         validateFileData(fileData);
         this.dataToList = extractDataToList(fileData);
-        if (!checkFileFormat()) return false;
+        checkFileFormat();
         if (!checkPlayersFormat()) return false;
         if (!checkCircuitFormat()) return false;
 
@@ -37,7 +38,7 @@ public class TXTFileValidator implements FileValidator {
 
 
     /**
-     * Method that checks if filedata is TXTParsedFileData type
+     * Method that checks if fileData is TXTParsedFileData type
      *
      * @param fileData - The given file
      */
@@ -60,15 +61,17 @@ public class TXTFileValidator implements FileValidator {
 
     /**
      * Method that checks the format of the txt file
-     *
-     * @return True if the format is correct, False otherwise
      */
-    private boolean checkFileFormat() {
-        if (this.dataToList.isEmpty()) return false;
-        if (!this.dataToList.getFirst().equals("::CIRCUIT")) return false;
-        if (!this.dataToList.get(CircuitSetup.MAX_NODES_Y + 1).equals("::PLAYERS")) return false;
-        if (this.dataToList.size() - 1 != CircuitSetup.LAST_ROW) return false;
-        return true;
+    private void checkFileFormat() {
+        if (this.dataToList.isEmpty())
+            throw new FileFormatError("Circuit cannot be empty");
+        if (!this.dataToList.getFirst().equals("::CIRCUIT"))
+            throw new FileFormatError("Circuit does not have the first line like ::CIRCUIT");
+        if (!this.dataToList.get(CircuitSetup.MAX_NODES_Y + 1).equals("::PLAYERS"))
+            throw new FileFormatError("The " + CircuitSetup.MAX_NODES_Y + " line in the file is not like ::PLAYERS");
+        if (this.dataToList.size() - 1 != TXTCircuitSetup.LAST_ROW)
+            throw new FileFormatError("The file provided is too long. The last row needs to be only populated by [name:color],[name:color] ... for human players");
+
     }
 
 
@@ -78,12 +81,12 @@ public class TXTFileValidator implements FileValidator {
      * @return - True if the player data is correctly inserted, False otherwise
      */
     private boolean checkPlayersFormat() {
-        String playersString = this.dataToList.get(CircuitSetup.PLAYERS_NUMBER_ROW);
-        if (PlayerUtils.getNumberOfBotPlayers(playersString) <= 0
-                && PlayerUtils.getNumberOfHumanPlayers(playersString) <= 0)
+        String playersString = this.dataToList.get(TXTCircuitSetup.PLAYERS_NUMBER_ROW);
+        if (PlayerUtils.getBotCount(playersString) <= 0
+                && PlayerUtils.getHumanCount(playersString) <= 0)
             return false;
 
-        return this.dataToList.get(CircuitSetup.PLAYERS_NUMBER_ROW).matches(PlayerUtils.getRegexForPlayers());
+        return this.dataToList.get(TXTCircuitSetup.PLAYERS_NUMBER_ROW).matches(getRegexForPlayers());
 
     }
 
@@ -108,10 +111,10 @@ public class TXTFileValidator implements FileValidator {
 
 
     /**
-     * Method that checks if the line passed has exactly Circuit.MAX_NODES_X character (the max)
+     * Method that checks if the line passed has exactly CircuitSetup.MAX_NODES_X character (the max)
      *
      * @param line - A line of the file
-     * @return True if length is exactly Circuit.MAX_NODES_X
+     * @return True if length is exactly CircuitSetup.MAX_NODES_X
      */
     private boolean checkLineLength(String line) {
         return line.length() == CircuitSetup.MAX_NODES_X;
@@ -125,7 +128,25 @@ public class TXTFileValidator implements FileValidator {
      * @return - True if the line contains only these symbols, false otherwise
      */
     private boolean checkLineSymbols(String line) {
-        return line.matches(CircuitNodeUtils.getRegexForNode());
+        return line.matches(getRegexForNode());
+    }
+
+
+    /**
+     * Method that supply a regex for characters that are accepted in the file
+     * @return String the regex
+     */
+    public static String getRegexForNode(){
+        return "[@*#+-]*";
+    }
+
+
+    /**
+     * Method that supply a regex for players number in the file
+     * @return String the regex
+     */
+    public static String getRegexForPlayers() {
+        return "\\d+B \\d+H";
     }
 
 }

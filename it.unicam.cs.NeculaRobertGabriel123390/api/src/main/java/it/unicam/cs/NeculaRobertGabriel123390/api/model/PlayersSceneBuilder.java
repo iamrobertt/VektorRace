@@ -1,4 +1,4 @@
-package it.unicam.cs.NeculaRobertGabriel123390.api.model.scenebuilder;
+package it.unicam.cs.NeculaRobertGabriel123390.api.model;
 
 import it.unicam.cs.NeculaRobertGabriel123390.api.model.player.Player;
 import javafx.scene.layout.GridPane;
@@ -50,12 +50,12 @@ public class PlayersSceneBuilder {
 
 
     /**
-     * Method that iteraters throught the list and adds every player to the gridPane
+     * Method that iterates through the list and adds every player to the gridPane
      */
     private void displayPlayers(){
         for(int i = 0; i < this.players.size(); i++) {
-            Rectangle playerColorRectangle = createRectangleWithPlayerColor(this.players.get(i).getPlayerColor());
-            Text playerNameText = createTextWithPlayerName(this.players.get(i).getPlayerName());
+            Rectangle playerColorRectangle = createRectangleWithPlayerColor(this.players.get(i).getColor());
+            Text playerNameText = createTextWithPlayerName(this.players.get(i).getName());
             this.playersGrid.add(playerColorRectangle, 0, i);
             this.playersGrid.add(playerNameText, 1, i);
         }
@@ -83,9 +83,5 @@ public class PlayersSceneBuilder {
         return new Text(playerName);
     }
 
-
-    public List<Player> getPlayers(){
-        return this.players;
-    }
 
 }

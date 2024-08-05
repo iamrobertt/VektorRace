@@ -1,6 +1,7 @@
 package it.unicam.cs.NeculaRobertGabriel123390.api.model.circuit;
 
 
+import it.unicam.cs.NeculaRobertGabriel123390.api.model.exception.UnsupportedFileFormatException;
 import it.unicam.cs.NeculaRobertGabriel123390.api.model.file.TXTParsedFileData;
 import it.unicam.cs.NeculaRobertGabriel123390.api.model.file.ParsedFileData;
 
@@ -20,6 +21,6 @@ public class CircuitSetupFactory {
         if(fileData instanceof TXTParsedFileData)
             return new TXTCircuitSetup();
 
-        return null;
+        throw new UnsupportedFileFormatException("Unsupported filedata format " + fileData.getClass().getName());
     }
 }

@@ -1,13 +1,10 @@
-package it.unicam.cs.NeculaRobertGabriel123390.api.model.player;
-
-
-import it.unicam.cs.NeculaRobertGabriel123390.api.model.Position;
+package it.unicam.cs.NeculaRobertGabriel123390.api.model;
 
 
 /**
  * Class that stores the 9 possible moves that a player can make. The data is updated every time a new move is made
  */
-public class PlayerPossibleMoves {
+public class PlayerMoves {
 
 
     private final Position[][] moves;
@@ -17,13 +14,13 @@ public class PlayerPossibleMoves {
      * Starter values for every player
      */
     private final int[][] INIT_VALUES = {
-            {-1, 1}, {0, 1}, {1, 1},
+            {-1, -1}, {0, -1}, {1, -1},
             {-1, 0}, {0, 0}, {1, 0},
-            {-1, -1}, {0, -1}, {1, -1}
+            {-1, 1}, {0, 1}, {1, 1}
     };
 
 
-    public PlayerPossibleMoves() {
+    public PlayerMoves() {
         this.moves = new Position[3][3];
         setup();
     }
@@ -43,7 +40,7 @@ public class PlayerPossibleMoves {
      * Method that takes the new move as a new position and adds it to all previous values
      * @param position - The new position relative to the current position
      */
-    public void updateGridPositions(Position position) {
+    public void updatePossibleMoves(Position position) {
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -60,4 +57,7 @@ public class PlayerPossibleMoves {
 
 
     public Position[][] getMoves() {return this.moves;}
+
+
+    public void resetMoves(){setup();}
 }
