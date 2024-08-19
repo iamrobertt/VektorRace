@@ -3,6 +3,7 @@ package it.unicam.cs.NeculaRobertGabriel123390.api;
 
 import it.unicam.cs.NeculaRobertGabriel123390.api.model.*;
 import it.unicam.cs.NeculaRobertGabriel123390.api.model.circuit.Circuit;
+import it.unicam.cs.NeculaRobertGabriel123390.api.utils.CircuitUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.annotation.Testable;
 
@@ -61,7 +62,7 @@ public class TestCircuit {
         List<Position> node2Neighbours = new ArrayList<>();
         node2Neighbours.add(node1.getPosition());
         node2Neighbours.add(node3.getPosition());
-        assertEquals(circuit.getNeighbours(node2.getPosition()), node2Neighbours);
+        assertEquals(CircuitUtils.get8Neighbours(circuit.getCircuitMap(), node2.getPosition()), node2Neighbours);
     }
 
 
@@ -122,7 +123,7 @@ public class TestCircuit {
         node1Neighbours.add(node9.getPosition());
 
 
-        List<Position> circuitNode1Neighbours = circuit.getNeighbours(node1.getPosition());
+        List<Position> circuitNode1Neighbours = CircuitUtils.get8Neighbours(circuit.getCircuitMap(), node1.getPosition());
 
         for(Position neighPosition : circuitNode1Neighbours) {
             assertTrue(node1Neighbours.contains(neighPosition));
