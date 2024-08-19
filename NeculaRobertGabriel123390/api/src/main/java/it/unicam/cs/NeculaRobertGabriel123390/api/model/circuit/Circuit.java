@@ -20,6 +20,7 @@
  * SOFTWARE.
  */
 
+
 package it.unicam.cs.NeculaRobertGabriel123390.api.model.circuit;
 
 
