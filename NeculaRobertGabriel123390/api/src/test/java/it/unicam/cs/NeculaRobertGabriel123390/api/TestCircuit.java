@@ -126,6 +126,7 @@ public class TestCircuit {
         List<Position> circuitNode1Neighbours = CircuitUtils.get8Neighbours(circuit.getCircuitMap(), node1.getPosition());
 
         for(Position neighPosition : circuitNode1Neighbours) {
+
             assertTrue(node1Neighbours.contains(neighPosition));
             node1Neighbours.remove(neighPosition);
         }
