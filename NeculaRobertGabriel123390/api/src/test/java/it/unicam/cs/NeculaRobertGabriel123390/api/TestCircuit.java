@@ -31,6 +31,18 @@ public class TestCircuit {
         CircuitNode node9 = new CircuitNode(new Position(9,1), CircuitNodeState.trackNode);
         CircuitNode node10 = new CircuitNode(new Position(10,1), CircuitNodeState.trackNode);
 
+        CircuitNode node11 = new CircuitNode(new Position(1,2), CircuitNodeState.trackNode);
+        CircuitNode node12 = new CircuitNode(new Position(2,2), CircuitNodeState.trackNode);
+        CircuitNode node13 = new CircuitNode(new Position(3,2), CircuitNodeState.trackNode);
+        CircuitNode node14 = new CircuitNode(new Position(4,2), CircuitNodeState.trackNode);
+        CircuitNode node15 = new CircuitNode(new Position(5,2), CircuitNodeState.trackNode);
+        CircuitNode node16 = new CircuitNode(new Position(6,2), CircuitNodeState.trackNode);
+        CircuitNode node17 = new CircuitNode(new Position(7,2), CircuitNodeState.trackNode);
+        CircuitNode node18 = new CircuitNode(new Position(8,2), CircuitNodeState.trackNode);
+        CircuitNode node19 = new CircuitNode(new Position(9,2), CircuitNodeState.trackNode);
+        CircuitNode node20 = new CircuitNode(new Position(10,2), CircuitNodeState.trackNode);
+
+
         Map<Position, CircuitNode> circuitNodes = new HashMap<>();
         circuitNodes.put(node1.getPosition(), node1);
         circuitNodes.put(node2.getPosition(), node2);
@@ -42,6 +54,16 @@ public class TestCircuit {
         circuitNodes.put(node8.getPosition(), node8);
         circuitNodes.put(node9.getPosition(), node9);
         circuitNodes.put(node10.getPosition(), node10);
+        circuitNodes.put(node11.getPosition(), node11);
+        circuitNodes.put(node12.getPosition(), node12);
+        circuitNodes.put(node13.getPosition(), node13);
+        circuitNodes.put(node14.getPosition(), node14);
+        circuitNodes.put(node15.getPosition(), node15);
+        circuitNodes.put(node16.getPosition(), node16);
+        circuitNodes.put(node17.getPosition(), node17);
+        circuitNodes.put(node18.getPosition(), node18);
+        circuitNodes.put(node19.getPosition(), node19);
+        circuitNodes.put(node20.getPosition(), node20);
 
         CircuitLine startLine = new StartEndCircuitLine();
         startLine.addNode(node1.getPosition());
@@ -60,8 +82,12 @@ public class TestCircuit {
         assertEquals(circuit.getEndLine(), endLine);
 
         List<Position> node2Neighbours = new ArrayList<>();
+        node2Neighbours.add(node11.getPosition());
+        node2Neighbours.add(node12.getPosition());
+        node2Neighbours.add(node13.getPosition());
         node2Neighbours.add(node1.getPosition());
         node2Neighbours.add(node3.getPosition());
+
         assertEquals(CircuitUtils.get8Neighbours(circuit.getCircuitMap(), node2.getPosition()), node2Neighbours);
     }
 
@@ -82,6 +108,9 @@ public class TestCircuit {
         CircuitNode node10 = new CircuitNode(new Position(10,11), CircuitNodeState.trackNode);
         CircuitNode node11 = new CircuitNode(new Position(10,12), CircuitNodeState.trackNode);
         CircuitNode node12 = new CircuitNode(new Position(10,13), CircuitNodeState.trackNode);
+        CircuitNode node13 = new CircuitNode(new Position(11,11), CircuitNodeState.trackNode);
+        CircuitNode node14 = new CircuitNode(new Position(11,12), CircuitNodeState.trackNode);
+        CircuitNode node15 = new CircuitNode(new Position(11,13), CircuitNodeState.trackNode);
 
         Map<Position, CircuitNode> circuitNodes = new HashMap<>();
         circuitNodes.put(node1.getPosition(), node1);
@@ -96,6 +125,9 @@ public class TestCircuit {
         circuitNodes.put(node10.getPosition(), node10);
         circuitNodes.put(node11.getPosition(), node11);
         circuitNodes.put(node12.getPosition(), node12);
+        circuitNodes.put(node13.getPosition(), node13);
+        circuitNodes.put(node14.getPosition(), node14);
+        circuitNodes.put(node15.getPosition(), node15);
 
 
         CircuitLine startLine = new StartEndCircuitLine();
@@ -155,6 +187,10 @@ public class TestCircuit {
         CircuitNode node11 = new CircuitNode(new Position(10,12), CircuitNodeState.trackNode);
         CircuitNode node12 = new CircuitNode(new Position(10,13), CircuitNodeState.trackNode);
 
+        CircuitNode node13 = new CircuitNode(new Position(11,11), CircuitNodeState.trackNode);
+        CircuitNode node14 = new CircuitNode(new Position(11,12), CircuitNodeState.trackNode);
+        CircuitNode node15 = new CircuitNode(new Position(11,13), CircuitNodeState.trackNode);
+
         Map<Position, CircuitNode> circuitNodes = new HashMap<>();
         circuitNodes.put(node1.getPosition(), node1);
         circuitNodes.put(node2.getPosition(), node2);
@@ -168,6 +204,9 @@ public class TestCircuit {
         circuitNodes.put(node10.getPosition(), node10);
         circuitNodes.put(node11.getPosition(), node11);
         circuitNodes.put(node12.getPosition(), node12);
+        circuitNodes.put(node13.getPosition(), node13);
+        circuitNodes.put(node14.getPosition(), node14);
+        circuitNodes.put(node15.getPosition(), node15);
 
 
         CircuitLine startLine = new StartEndCircuitLine();
