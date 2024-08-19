@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="it.unicam.cs.NeculaRobertGabriel123390.app.LoadingController">
+   <Pane prefHeight="80.0" prefWidth="1400.0" style="-fx-background-color: #8885EF;">
+      <Text fill="WHITE" layoutX="624.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FORMULA 1"
+            textAlignment="CENTER">
+         <font>
+            <Font name="Segoe UI Bold" size="30.0"/>
+         </font>
+      </Text>
+   </Pane>
+   <Pane layoutX="-7.0" layoutY="80.0" prefHeight="720.0" prefWidth="1400.0">
+      <Pane layoutX="300.0" layoutY="113.0" prefHeight="495.0" prefWidth="800.0"
+            style="-fx-background-color: white; -fx-border-color: #8885EF; -fx-border-width: 3;">
+         <opaqueInsets>
+            <Insets/>
+         </opaqueInsets>
+         <Pane prefHeight="216.0" prefWidth="806.0">
+            <Text layoutX="212.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                  text="Welcome to the formula 1 game" textAlignment="CENTER" wrappingWidth="381.341796875">
+               <font>
+                  <Font name="Segoe UI" size="25.0"/>
+               </font>
+            </Text>
+            <Text layoutX="14.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                  text="Choose a file with the track information to start a race!" textAlignment="CENTER"
+                  wrappingWidth="201.341796875">
+               <font>
+                  <Font name="Segoe UI" size="16.0"/>
+               </font>
+            </Text>
+            <Button layoutX="230.0" layoutY="65.0" mnemonicParsing="false"
+                    onMouseClicked="#onOpenFile" prefHeight="40.0" prefWidth="100.0"
+                    style="-fx-background-color: #8885EF;" text="LOAD FILE" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI" size="16.0"/>
+               </font>
+            </Button>
+         </Pane>
+         <Pane layoutY="213.0" prefHeight="280.0" prefWidth="800.0">
+            <Button layoutX="666.0" layoutY="226.0" mnemonicParsing="false"
+                    onMouseClicked="#onStartRace" prefHeight="40.0" prefWidth="120.0"
+                    style="-fx-background-color: #8885EF;" text="START RACE" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI" size="16.0"/>
+               </font>
+            </Button>
+            <Text layoutX="748.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                  wrappingWidth="40.0">
+               <font>
+                  <Font name="Segoe UI" size="16.0"/>
+               </font>
+            </Text>
+            <Pane layoutX="300.0" layoutY="64.0" prefHeight="216.0" prefWidth="354.0">
+               <Text layoutX="14.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RULES"
+                     textAlignment="CENTER" wrappingWidth="54.000000000000114">
+                  <font>
+                     <Font name="Segoe UI Bold" size="16.0"/>
+                  </font>
+               </Text>
+               <Text layoutX="14.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                     text="ALLOW COLLISIONS:" textAlignment="CENTER" wrappingWidth="155.6201171875">
+                  <font>
+                     <Font name="Segoe UI" size="16.0"/>
+                  </font>
+               </Text>
+               <Text layoutX="14.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ON CRASH:"
+                     textAlignment="CENTER" wrappingWidth="88.6201171875">
+                  <font>
+                     <Font name="Segoe UI" size="16.0"/>
+                  </font>
+               </Text>
+               <ChoiceBox fx:id="allowCollisionsChoiceBox" layoutX="180.0" layoutY="36.0" prefHeight="25.0"
+                          prefWidth="156.0"/>
+               <ChoiceBox fx:id="onCrashChoiceBox" layoutX="180.0" layoutY="75.0" prefHeight="25.0"
+                          prefWidth="156.0"/>
+               <Text layoutX="14.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                     text="WIN CONDITION:" textAlignment="CENTER" wrappingWidth="132.6201171875">
+                  <font>
+                     <Font name="Segoe UI" size="16.0"/>
+                  </font>
+               </Text>
+               <ChoiceBox fx:id="winConditionChoiceBox" layoutX="180.0" layoutY="118.0" prefHeight="25.0"
+                          prefWidth="156.0"/>
+            </Pane>
+            <Text layoutX="14.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LOG"
+                  textAlignment="CENTER" wrappingWidth="40.0">
+               <font>
+                  <Font name="Segoe UI Bold" size="16.0"/>
+               </font>
+            </Text>
+            <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="102.0" prefHeight="180.0"
+                        prefWidth="298.0">
+               <TextArea fx:id="loadingLogArea" editable="false" prefHeight="178.0" prefWidth="300.0"/>
+            </ScrollPane>
+         </Pane>
+      </Pane>
+   </Pane>
+</AnchorPane>
