@@ -21,7 +21,7 @@ public class TestPlayerMoves {
         PlayerMoves playerMoves = new PlayerMoves();
         Position updatePosition = new Position(1,1);
 
-        playerMoves.updatePossibleMoves(updatePosition);
+        playerMoves.update(updatePosition);
 
         Position[][] newMoves = new Position[][]{
                 {new Position(0,0), new Position(1,0), new Position(2,0)},
@@ -38,7 +38,7 @@ public class TestPlayerMoves {
 
         PlayerMoves playerMoves = new PlayerMoves();
 
-        assertThrows(NullPointerException.class, () -> playerMoves.updatePossibleMoves(null));
+        assertThrows(NullPointerException.class, () -> playerMoves.update(null));
 
     }
 }
