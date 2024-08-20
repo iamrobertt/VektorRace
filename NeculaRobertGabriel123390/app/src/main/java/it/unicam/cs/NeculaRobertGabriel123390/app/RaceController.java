@@ -131,12 +131,12 @@ public class RaceController {
         if(event == null)
             throw new NullPointerException("Event is null");
 
+
         Button button = (Button) event.getSource();
         Position buttonPosition = (Position) button.getUserData();
 
         MoveResult moveResult = this.raceManager.onPlayerMove(buttonPosition);
         processMoveResult(moveResult);
-
     }
 
 
