@@ -49,7 +49,8 @@ public final class LeaveRaceCrashHandler extends CrashHandler {
     public MoveResult handle(Position prevPosition, Position newPosition) {
         validateData(prevPosition,newPosition,this.raceManager);
 
-        if(!this.raceManager.getCircuitManager().isCrashing(prevPosition, newPosition)) return null;
+        if(!this.raceManager.getCircuitManager().isCrashing(prevPosition, newPosition))
+            return null;
 
         logEvent(newPosition);
         MoveResult moveResult = new MoveResult(this.raceManager.getCurrentPlayer(), newPosition, MoveResultType.CRASH_LEAVE_RACE);
@@ -72,10 +73,11 @@ public final class LeaveRaceCrashHandler extends CrashHandler {
     /**
      * Updates the state of the race by removing the current player from the race.
      * The function updateCurrentPlayer(); in race manager can't be used due to the fact
-     * that the current player is already being removed from the queue, making the head if the queue shift automatically.
+     * that the current player is already being removed from the queue, making the head of the queue shift automatically.
      */
     @Override
     public void updateState() {
+        this.raceManager.getCircuitManager().setFree(this.raceManager.getCurrentPlayer().getPosition());
         this.raceManager.getPlayersManager().removePlayer(this.raceManager.getCurrentPlayer());
     }
 }
