@@ -23,6 +23,7 @@
 
 package it.unicam.cs.NeculaRobertGabriel123390.api.model.handler.crash;
 
+
 import it.unicam.cs.NeculaRobertGabriel123390.api.model.MoveResult;
 import it.unicam.cs.NeculaRobertGabriel123390.api.model.MoveResultType;
 import it.unicam.cs.NeculaRobertGabriel123390.api.model.Position;

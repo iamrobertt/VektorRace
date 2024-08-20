@@ -82,8 +82,7 @@ public final class PlayersManager {
         Player currentPlayer = getCurrentPlayer();
         Position newPosition = PositionUtils.addPositions(currentPlayer.getPosition(), movePosition);
         updatePosition(currentPlayer, newPosition);
-
-        currentPlayer.getPossibleMoves().updatePossibleMoves(movePosition);
+        currentPlayer.getPossibleMoves().update(movePosition);
     }
 
 
@@ -132,7 +131,7 @@ public final class PlayersManager {
     public Player getCurrentPlayer() {
         Player currentPlayer = this.playerQueue.peek();
         if(currentPlayer == null)
-            throw new IllegalArgumentException("No player left in the race");
+            throw new IllegalArgumentException("Failed to get current player, value is null");
 
         return currentPlayer;
     }

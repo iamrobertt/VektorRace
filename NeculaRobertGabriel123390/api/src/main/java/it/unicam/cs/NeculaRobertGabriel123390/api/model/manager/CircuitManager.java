@@ -23,11 +23,8 @@
 
 package it.unicam.cs.NeculaRobertGabriel123390.api.model.manager;
 
-import it.unicam.cs.NeculaRobertGabriel123390.api.model.BresenhamLineAlgorithm;
-import it.unicam.cs.NeculaRobertGabriel123390.api.model.CircuitLine;
-import it.unicam.cs.NeculaRobertGabriel123390.api.model.Position;
+import it.unicam.cs.NeculaRobertGabriel123390.api.model.*;
 import it.unicam.cs.NeculaRobertGabriel123390.api.model.circuit.Circuit;
-import it.unicam.cs.NeculaRobertGabriel123390.api.model.CircuitNodeState;
 import it.unicam.cs.NeculaRobertGabriel123390.api.model.circuit.CircuitValidator;
 import it.unicam.cs.NeculaRobertGabriel123390.api.utils.CircuitUtils;
 import it.unicam.cs.NeculaRobertGabriel123390.api.utils.PositionUtils;
@@ -190,7 +187,7 @@ public final class CircuitManager {
      *
      * @param position the position to set as free
      */
-    private void setFree(Position position) {
+    public void setFree(Position position) {
         PositionUtils.validateCircuitNodePosition(position);
         checkPositionInCircuit(position);
 

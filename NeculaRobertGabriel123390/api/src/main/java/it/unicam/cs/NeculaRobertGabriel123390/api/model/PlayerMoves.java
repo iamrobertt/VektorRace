@@ -75,7 +75,7 @@ public final class PlayerMoves {
      *
      * @param position The new position relative to the current position.
      */
-    public void updatePossibleMoves(Position position) {
+    public void update(Position position) {
         PositionUtils.validatePosition(position);
 
         for (int i = 0; i < 3; i++) {
