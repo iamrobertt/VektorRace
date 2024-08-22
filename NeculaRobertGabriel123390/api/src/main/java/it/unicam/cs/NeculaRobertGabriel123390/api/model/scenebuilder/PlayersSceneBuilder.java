@@ -31,6 +31,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,7 +53,7 @@ public final class PlayersSceneBuilder extends SceneBuilder<GridPane, List<Playe
      * @throws NullPointerException if {@code players} or {@code playersGrid} is {@code null}.
      */
     public PlayersSceneBuilder(GridPane playersGrid, List<Player> players) {
-        super(playersGrid, players);
+        super(playersGrid, new ArrayList<>(players));
     }
 
 
@@ -81,16 +82,18 @@ public final class PlayersSceneBuilder extends SceneBuilder<GridPane, List<Playe
     public void update(MoveResult moveResult) {
         MoveResultValidator.validate(moveResult);
         if(moveResult.moveType().equals(MoveResultType.CRASH_LEAVE_RACE))
-            removePlayerFromBoard();
+            removePlayerFromBoard(moveResult.player());
     }
 
 
     /**
      * Clears the {@code GridPane} and displays the updated list of players.
-     * This method is called when a player leaves the race, ensuring that the board is refreshed to reflect
+     * This method is called when a player leaves the race, ensuring that the board is updated to reflect
      * the current state of the game.
+     * @param player The player to remove from the board
      */
-    private void removePlayerFromBoard() {
+    private void removePlayerFromBoard(Player player) {
+        this.data.remove(player);
         this.container.getChildren().clear();
         displayPlayers();
     }
