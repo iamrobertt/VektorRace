@@ -75,7 +75,7 @@ public final class CircuitValidator {
         if (circuitMap == null)
             throw new NullPointerException("CircuitNodes is null");
         if (circuitMap.isEmpty())
-            throw new IllegalArgumentException("CircuitNodes is empty");
+            throw new IllegalArgumentException("No circuit node was provided for the circuit.");
         validateStartLine(circuitMap, startLine);
         validateEndLine(circuitMap, endLine);
         validateStartEndLinePositioning(circuitMap, startLine, endLine);

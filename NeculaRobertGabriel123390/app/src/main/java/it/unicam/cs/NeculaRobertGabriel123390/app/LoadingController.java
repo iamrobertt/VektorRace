@@ -137,7 +137,6 @@ public class LoadingController {
 
         FileParser fileParser = FileParserFactory.getParser(file);
         this.parsedData = fileParser.parseFile(file);
-
         LoadingLogger.log("Successfully parsed the file.");
     }
 

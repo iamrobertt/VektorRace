@@ -121,7 +121,7 @@ public final class TXTParsedDataValidator implements ParsedDataValidator {
         if (!this.dataToList.getFirst().equals("::CIRCUIT"))
             LoadingLogger.logErrorAndThrow("Circuit does not have the first line equal to ::CIRCUIT", FileFormatError.class);
         if (!this.dataToList.get(CircuitSetup.MAX_NODES_Y + 1).equals("::PLAYERS"))
-            LoadingLogger.logErrorAndThrow("The " + CircuitSetup.MAX_NODES_Y + " line in the file is not like ::PLAYERS", FileFormatError.class);
+            LoadingLogger.logErrorAndThrow("The " + CircuitSetup.MAX_NODES_Y + " line in the file is not like ::PLAYERS. " + this.dataToList.get(CircuitSetup.MAX_NODES_Y + 1) + " was found instead.", FileFormatError.class);
         if (this.dataToList.size() - 1 != TXTCircuitSetup.LAST_ROW)
             LoadingLogger.logErrorAndThrow("The file provided is too long. The last row needs to be only populated by [name:color],[name:color] ... for human players", FileFormatError.class);
 
