@@ -25,6 +25,7 @@ package it.unicam.cs.NeculaRobertGabriel123390.api.utils;
 
 import it.unicam.cs.NeculaRobertGabriel123390.api.model.Position;
 import it.unicam.cs.NeculaRobertGabriel123390.api.model.circuit.CircuitSetup;
+import it.unicam.cs.NeculaRobertGabriel123390.api.model.circuit.TXTCircuitSetup;
 
 import java.util.List;
 
@@ -77,8 +78,8 @@ public final class PositionUtils {
      */
     public static void validateCircuitNodePosition(Position position) {
         validatePosition(position);
-        if(position.getX() < 0 || position.getX() > CircuitSetup.MAX_NODES_X ||
-                position.getY() < 0 || position.getY() > CircuitSetup.MAX_NODES_Y)
+        if(position.getX() < 0 || position.getX() > TXTCircuitSetup.MAX_NODES_X ||
+                position.getY() < 0 || position.getY() > TXTCircuitSetup.MAX_NODES_Y)
             throw new IllegalArgumentException(position + " is out of bounds");
 
     }
