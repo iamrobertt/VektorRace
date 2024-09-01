@@ -72,15 +72,6 @@ public enum CircuitNodeState {
 
 
     /**
-     * Indicates that the node is part of the track and represents a wall or barrier.
-     * <p>
-     * If a player collides with this node, it results in a crash.
-     * </p>
-     */
-    wallNode,
-
-
-    /**
      * Indicates that the node is part of the track but is currently occupied by another player.
      * <p>
      * This state is used to track which nodes are occupied and prevent multiple players from
