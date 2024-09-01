@@ -36,25 +36,16 @@ public interface CircuitSetup {
 
 
     /**
-     * The maximum number of nodes allowed in the X-axis of the circuit.
+     * The dimension of the rectangular grid used in the circuit.
      */
-    int MAX_NODES_X = 63;
 
-    /**
-     * The maximum number of nodes allowed in the Y-axis of the circuit.
-     */
-    int MAX_NODES_Y = 35;
+    int DIM_RECT = 20;
+
 
     /**
      * The minimum width required for the circuit, in terms of nodes.
      */
     int MIN_CIRCUIT_WIDTH = 2;
-
-    /**
-     * The dimension of the rectangular grid used in the circuit.
-     */
-    int DIM_RECT = 20;
-
 
     /**
      * Constructs a {@link Circuit} based on the given parsed file data.

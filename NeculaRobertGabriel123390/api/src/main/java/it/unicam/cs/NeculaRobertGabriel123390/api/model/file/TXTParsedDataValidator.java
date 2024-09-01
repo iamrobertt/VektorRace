@@ -25,7 +25,6 @@ package it.unicam.cs.NeculaRobertGabriel123390.api.model.file;
 
 
 import it.unicam.cs.NeculaRobertGabriel123390.api.model.log.LoadingLogger;
-import it.unicam.cs.NeculaRobertGabriel123390.api.model.circuit.CircuitSetup;
 import it.unicam.cs.NeculaRobertGabriel123390.api.model.circuit.TXTCircuitSetup;
 import it.unicam.cs.NeculaRobertGabriel123390.api.model.exception.FileFormatError;
 import it.unicam.cs.NeculaRobertGabriel123390.api.utils.PlayerUtils;
@@ -116,13 +115,22 @@ public final class TXTParsedDataValidator implements ParsedDataValidator {
      * </p>
      */
     private void checkFileFormat() {
+
+        int lastRow;
+        if(PlayerUtils.getHumanCount(this.dataToList.get(TXTCircuitSetup.MAX_NODES_Y + 2)) == 0)
+            lastRow = 37;
+        else
+            lastRow = 38;
+
         if (this.dataToList.isEmpty())
             LoadingLogger.logErrorAndThrow("Circuit cannot be empty", FileFormatError.class);
         if (!this.dataToList.getFirst().equals("::CIRCUIT"))
             LoadingLogger.logErrorAndThrow("Circuit does not have the first line equal to ::CIRCUIT", FileFormatError.class);
-        if (!this.dataToList.get(CircuitSetup.MAX_NODES_Y + 1).equals("::PLAYERS"))
-            LoadingLogger.logErrorAndThrow("The " + CircuitSetup.MAX_NODES_Y + " line in the file is not like ::PLAYERS. " + this.dataToList.get(CircuitSetup.MAX_NODES_Y + 1) + " was found instead.", FileFormatError.class);
-        if (this.dataToList.size() - 1 != TXTCircuitSetup.LAST_ROW)
+        if (!this.dataToList.get(TXTCircuitSetup.MAX_NODES_Y + 1).equals("::PLAYERS"))
+            LoadingLogger.logErrorAndThrow("The " + TXTCircuitSetup.MAX_NODES_Y + " line in the file is not like ::PLAYERS. " + this.dataToList.get(TXTCircuitSetup.MAX_NODES_Y + 1) + " was found instead.", FileFormatError.class);
+
+
+        if (this.dataToList.size() - 1 != lastRow)
             LoadingLogger.logErrorAndThrow("The file provided is too long. The last row needs to be only populated by [name:color],[name:color] ... for human players", FileFormatError.class);
 
     }
@@ -156,13 +164,13 @@ public final class TXTParsedDataValidator implements ParsedDataValidator {
      */
     private void checkCircuitFormat() {
 
-        for (int i = 1; i <= CircuitSetup.MAX_NODES_Y; i++) {
+        for (int i = 1; i <= TXTCircuitSetup.MAX_NODES_Y; i++) {
 
             String line = this.dataToList.get(i);
 
             if (!checkLineLength(line))
                 LoadingLogger.logErrorAndThrow("Circuit length is not valid at line " + i + ".\n" +
-                        "Expected " + CircuitSetup.MAX_NODES_X + " characters, found " + line.length() + ".", FileFormatError.class);
+                        "Expected " + TXTCircuitSetup.MAX_NODES_X + " characters, found " + line.length() + ".", FileFormatError.class);
 
             if (!checkLineSymbols(line))
                 LoadingLogger.logErrorAndThrow("Invalid symbol found at line " + i + ".\n" +
@@ -176,10 +184,10 @@ public final class TXTParsedDataValidator implements ParsedDataValidator {
      * Checks if the given line has the exact length required for the circuit.
      *
      * @param line a line from the circuit data
-     * @return true if the length of the line matches {@link CircuitSetup#MAX_NODES_X}, false otherwise
+     * @return true if the length of the line matches {@link TXTCircuitSetup#MAX_NODES_X}, false otherwise
      */
     private boolean checkLineLength(String line) {
-        return line.length() == CircuitSetup.MAX_NODES_X;
+        return line.length() == TXTCircuitSetup.MAX_NODES_X;
     }
 
 

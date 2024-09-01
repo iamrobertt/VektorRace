@@ -65,6 +65,13 @@ public final class TXTPlayerSetup implements PlayerSetup {
 
         List<Player> players = new ArrayList<>();
 
+        int numHumanPlayer = PlayerUtils.getHumanCount(playersCountInfo);
+
+        if(numHumanPlayer == 0) {
+            players.addAll(createBotPlayers(numBotsPlayer));
+            return players;
+        }
+
         String[] humanData = getHumanPlayerData(fileData, playersCountInfo);
         players.addAll(createHumanPlayers(humanData));
         players.addAll(createBotPlayers(numBotsPlayer));

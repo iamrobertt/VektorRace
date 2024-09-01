@@ -47,12 +47,6 @@ public final class TXTCircuitSetup implements CircuitSetup {
 
 
     /**
-     * The last row in the file.
-     */
-    public static final int LAST_ROW = 38;
-
-
-    /**
      * The row where the player amount of players playing should be defined.
      */
     public static final int PLAYERS_COUNT_ROW = 37;
@@ -65,16 +59,19 @@ public final class TXTCircuitSetup implements CircuitSetup {
 
 
     /**
+     * The maximum number of nodes allowed in the X-axis of the circuit.
+     */
+    public static final int MAX_NODES_X = 63;
+
+
+    /**
+     * The maximum number of nodes allowed in the Y-axis of the circuit.
+     */
+    public static final int MAX_NODES_Y = 35;
+
+
+    /**
      * Sets up a {@link Circuit} using the provided parsed file data.
-     * This method performs the following steps:
-     * <ol>
-     *     <li>Validates the file data.</li>
-     *     <li>Extracts the data into a list.</li>
-     *     <li>Creates the circuit map from the extracted data.</li>
-     *     <li>Identifies the start and end lines of the circuit.</li>
-     *     <li>Validates the positioning of the start and end lines.</li>
-     * </ol>
-     *
      * @param fileData the parsed file data, expected to be of type {@link TXTParsedData}.
      * @return a {@link Circuit} object representing the setup circuit.
      * @throws NullPointerException if the provided file data is null.
@@ -145,8 +142,8 @@ public final class TXTCircuitSetup implements CircuitSetup {
     private Map<Position, CircuitNode> createCircuitMap(List<String> dataToList) {
         validateListOfData(dataToList);
         Map<Position, CircuitNode> circuitNodes = new HashMap<>();
-        for (int y = 1; y <= CircuitSetup.MAX_NODES_Y; y++) {
-            for (int x = 0; x < CircuitSetup.MAX_NODES_X; x++) {
+        for (int y = 1; y <= MAX_NODES_Y; y++) {
+            for (int x = 0; x < MAX_NODES_X; x++) {
                 char character = dataToList.get(y).charAt(x);
                 CircuitNode circuitNode = new CircuitNode(new Position(x, y), getNodeTypeFromCharacter(character));
                 if (circuitNode.getState() != CircuitNodeState.nonTrackNode)
@@ -200,7 +197,6 @@ public final class TXTCircuitSetup implements CircuitSetup {
             case '@' -> CircuitNodeState.trackNode;
             case '+' -> CircuitNodeState.startNode;
             case '-' -> CircuitNodeState.endNode;
-            case '*' -> CircuitNodeState.wallNode;
             default -> throw new FileFormatError("Unexpected character: " + c);
         };
     }

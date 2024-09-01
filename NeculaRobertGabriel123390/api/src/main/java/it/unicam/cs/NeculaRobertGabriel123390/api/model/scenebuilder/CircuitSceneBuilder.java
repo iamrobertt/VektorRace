@@ -26,6 +26,7 @@ package it.unicam.cs.NeculaRobertGabriel123390.api.model.scenebuilder;
 import it.unicam.cs.NeculaRobertGabriel123390.api.model.*;
 import it.unicam.cs.NeculaRobertGabriel123390.api.model.circuit.Circuit;
 import it.unicam.cs.NeculaRobertGabriel123390.api.model.circuit.CircuitValidator;
+import it.unicam.cs.NeculaRobertGabriel123390.api.model.circuit.TXTCircuitSetup;
 import it.unicam.cs.NeculaRobertGabriel123390.api.utils.CircuitUtils;
 import it.unicam.cs.NeculaRobertGabriel123390.api.utils.PositionUtils;
 import javafx.scene.layout.Pane;
@@ -106,8 +107,8 @@ public final class CircuitSceneBuilder extends SceneBuilder<Pane, Circuit> imple
      * on the pane. Each rectangle represents a tile in the circuit grid.
      */
     public void displayCircuitGrid() {
-        for (int x = 0; x < CircuitSetup.MAX_NODES_X; x++) {
-            for (int y = 0; y < CircuitSetup.MAX_NODES_Y; y++) {
+        for (int x = 0; x < TXTCircuitSetup.MAX_NODES_X; x++) {
+            for (int y = 0; y < TXTCircuitSetup.MAX_NODES_Y; y++) {
                 Position tilePosition = new Position(x, y);
                 Rectangle rectangle = createTile(tilePosition);
                 this.container.getChildren().add(rectangle);
