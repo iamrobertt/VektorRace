@@ -148,14 +148,14 @@ public class RaceController {
      */
     private void processMoveResult(MoveResult moveResult) {
         MoveResultValidator.validate(moveResult);
-
         switch (moveResult.moveType()) {
             case MoveResultType.SUCCESS, MoveResultType.COLLISION_ALLOWED ->{
                 updateView(moveResult);
                 updateTurnData();
             }
 
-            case MoveResultType.CRASH_CONTINUE_WITH_PENALTY, MoveResultType.COLLISION_NOT_ALLOWED -> updateTurnData();
+            case MoveResultType.CRASH_CONTINUE_WITH_PENALTY, MoveResultType.COLLISION_NOT_ALLOWED ->
+                updateTurnData();
 
             case MoveResultType.CRASH_LEAVE_RACE -> {
                 if(this.raceManager.wasLastPlayer())
@@ -182,17 +182,22 @@ public class RaceController {
         MoveResultValidator.validate(moveResult);
         this.renderer.update(this.circuitSceneBuilder, moveResult);
         this.renderer.update(this.playersSceneBuilder, moveResult);
+        displayCurrentPlayer();
     }
 
 
     /**
      * Updates the move grid for the next player and handles bot moves if applicable.
+     * @throws NullPointerException if the player moves is null
      */
     private void updateTurnData() {
         PlayerMoves nextPlayerMoves = this.raceManager.getCurrentPlayerMoves();
+
+        if(nextPlayerMoves == null)
+            throw new NullPointerException("nextPlayerMoves is null");
+
         this.renderer.update(this.movesGridSceneBuilder, nextPlayerMoves);
         handleMoveIfBot(nextPlayerMoves);
-        displayCurrentPlayer();
     }
 
 
